@@ -20,9 +20,7 @@ public class Address implements Serializable {
     private String country;
     @Column(name = "postal_code")
     private String postalCode;
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "contact_information_id")
+    @OneToOne(mappedBy = "address")
     private ContactInformation contactInformation;
 
     public Long getId() {

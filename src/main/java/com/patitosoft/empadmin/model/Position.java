@@ -13,6 +13,8 @@ public class Position {
     private String title;
     @Column(name = "stack")
     private String stack;
+    @OneToOne(mappedBy = "position")
+    private Position position;
 
     public Long getId() {
         return id;
@@ -36,6 +38,14 @@ public class Position {
 
     public void setStack(String stack) {
         this.stack = stack;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
     }
 
     @Override

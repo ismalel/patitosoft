@@ -21,9 +21,8 @@ public class Employee {
     private String salary;
     @Column(name = "active")
     private Boolean active;
-    @OneToOne(mappedBy = "id")
-    private ContactInformation contactInformation;
-    @OneToOne(mappedBy = "id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "position_id", referencedColumnName = "id")
     private Position position;
 
     public Long getId() {
@@ -82,14 +81,6 @@ public class Employee {
         this.active = active;
     }
 
-    public ContactInformation getContactInformation() {
-        return contactInformation;
-    }
-
-    public void setContactInformation(ContactInformation contactInformation) {
-        this.contactInformation = contactInformation;
-    }
-
     public Position getPosition() {
         return position;
     }
@@ -108,7 +99,6 @@ public class Employee {
                 ", gender='" + gender + '\'' +
                 ", salary='" + salary + '\'' +
                 ", active=" + active +
-                ", contactInformation=" + contactInformation +
                 ", position=" + position +
                 '}';
     }

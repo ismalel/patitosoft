@@ -14,10 +14,13 @@ public class ContactInformation {
     private String personalEmail;
     @Column(name = "phone_number")
     private String phoneNumber;
-    @OneToOne(mappedBy = "contact_information_id", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
     @Column(name = "birthday")
     private Date birthday;
+    @OneToOne(mappedBy = "employee")
+    private Employee employee;
 
     public Long getId() {
         return id;
@@ -57,6 +60,14 @@ public class ContactInformation {
 
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     @Override

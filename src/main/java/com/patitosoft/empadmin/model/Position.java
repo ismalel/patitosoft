@@ -13,7 +13,8 @@ public class Position {
     private String title;
     @Column(name = "stack")
     private String stack;
-    @OneToOne(mappedBy = "position")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "position_id", referencedColumnName = "id")
     private Position position;
 
     public Long getId() {

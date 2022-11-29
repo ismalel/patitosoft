@@ -21,9 +21,11 @@ public class Employee {
     private String salary;
     @Column(name = "active")
     private Boolean active;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "position_id", referencedColumnName = "id")
+    @OneToOne(mappedBy = "position", cascade = CascadeType.ALL)
     private Position position;
+
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
+    private ContactInformation contactInformation;
 
     public Long getId() {
         return id;
@@ -87,6 +89,14 @@ public class Employee {
 
     public void setPosition(Position position) {
         this.position = position;
+    }
+
+    public ContactInformation getContactInformation() {
+        return contactInformation;
+    }
+
+    public void setContactInformation(ContactInformation contactInformation) {
+        this.contactInformation = contactInformation;
     }
 
     @Override

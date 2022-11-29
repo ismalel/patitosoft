@@ -20,7 +20,7 @@ public class Address implements Serializable {
     private String country;
     @Column(name = "postal_code")
     private String postalCode;
-    @OneToOne(mappedBy = "address")
+    @OneToOne(mappedBy = "address", cascade = CascadeType.ALL)
     private ContactInformation contactInformation;
 
     public Long getId() {

@@ -1,5 +1,7 @@
 package com.patitosoft.empadmin.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -18,8 +20,10 @@ public class ContactInformation {
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
     @Column(name = "birthday")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date birthday;
-    @OneToOne(mappedBy = "employee")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "contact_information_id", referencedColumnName = "id")
     private Employee employee;
 
     public Long getId() {

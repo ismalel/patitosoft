@@ -1,6 +1,10 @@
 package com.patitosoft.empadmin.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "employee")
@@ -17,15 +21,22 @@ public class Employee {
     private String lastName;
     @Column(name = "gender", nullable = false)
     private String gender;
-    @Column(name = "salary")
-    private String salary;
+    @Column(name = "currentSalary")
+    private String currentSalary;
     @Column(name = "active")
     private Boolean active;
-    @OneToOne(mappedBy = "position", cascade = CascadeType.ALL)
-    private Position position;
-
-    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
+    @Column(name = "currentPosition")
+    private String currentPosition;
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "contact_information_id", referencedColumnName = "id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private ContactInformation contactInformation;
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "position_history_id", referencedColumnName = "id")
+    private List<PositionHistory> positionHistory;
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "salary_history_id", referencedColumnName = "id")
+    private List<SalaryHistory> salaryHistory;
 
     public Long getId() {
         return id;
@@ -67,13 +78,6 @@ public class Employee {
         this.gender = gender;
     }
 
-    public String getSalary() {
-        return salary;
-    }
-
-    public void setSalary(String salary) {
-        this.salary = salary;
-    }
 
     public Boolean getActive() {
         return active;
@@ -83,12 +87,20 @@ public class Employee {
         this.active = active;
     }
 
-    public Position getPosition() {
-        return position;
+    public String getCurrentPosition() {
+        return currentPosition;
     }
 
-    public void setPosition(Position position) {
-        this.position = position;
+    public void setCurrentPosition(String currentPosition) {
+        this.currentPosition = currentPosition;
+    }
+
+    public String getCurrentSalary() {
+        return currentSalary;
+    }
+
+    public void setCurrentSalary(String currentSalary) {
+        this.currentSalary = currentSalary;
     }
 
     public ContactInformation getContactInformation() {
@@ -99,6 +111,22 @@ public class Employee {
         this.contactInformation = contactInformation;
     }
 
+    public List<PositionHistory> getPositionHistory() {
+        return positionHistory;
+    }
+
+    public void setPositionHistory(List<PositionHistory> positionHistory) {
+        this.positionHistory = positionHistory;
+    }
+
+    public List<SalaryHistory> getSalaryHistory() {
+        return salaryHistory;
+    }
+
+    public void setSalaryHistory(List<SalaryHistory> salaryHistory) {
+        this.salaryHistory = salaryHistory;
+    }
+
     @Override
     public String toString() {
         return "Employee{" +
@@ -107,9 +135,10 @@ public class Employee {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", gender='" + gender + '\'' +
-                ", salary='" + salary + '\'' +
+                ", currentSalary='" + currentSalary + '\'' +
                 ", active=" + active +
-                ", position=" + position +
+                ", currentPosition='" + currentPosition + '\'' +
+                ", contactInformation=" + contactInformation +
                 '}';
     }
 }

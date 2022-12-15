@@ -17,14 +17,12 @@ public class ContactInformation {
     @Column(name = "phone_number")
     private String phoneNumber;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    @JoinColumn(name = "address_id", referencedColumnName = "id", nullable = false)
     private Address address;
     @Column(name = "birthday")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date birthday;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "contact_information_id", referencedColumnName = "id")
-    private Employee employee;
+
 
     public Long getId() {
         return id;
@@ -66,13 +64,6 @@ public class ContactInformation {
         this.birthday = birthday;
     }
 
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
 
     @Override
     public String toString() {

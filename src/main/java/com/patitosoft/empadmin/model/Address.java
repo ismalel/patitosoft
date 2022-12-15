@@ -1,5 +1,7 @@
 package com.patitosoft.empadmin.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -21,6 +23,7 @@ public class Address implements Serializable {
     @Column(name = "postal_code")
     private String postalCode;
     @OneToOne(mappedBy = "address", cascade = CascadeType.ALL)
+    @JsonIgnore
     private ContactInformation contactInformation;
 
     public Long getId() {
